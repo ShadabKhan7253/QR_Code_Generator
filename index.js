@@ -3,6 +3,8 @@
 // 3. Create a txt file to save the user input using the  native fs noe module
 
 import inquirer from 'inquirer';
+import qr from 'qr-image';
+import fs from 'fs';
 
 inquirer
   .prompt([
@@ -14,6 +16,8 @@ inquirer
   .then((answers) => {
     // console.log(answers);
     const url = answers.URL;
+    var qr_png = qr.image(url);
+    qr_png.pipe(fs.createWriteStream('QR_Code_img.png'));
   })
   .catch((error) => {
     if (error.isTtyError) {
